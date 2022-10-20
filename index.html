@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2022-10-17 19:03:59
  * @LastEditors: LetMeFly
- * @LastEditTime: 2022-10-20 18:58:18
+ * @LastEditTime: 2022-10-20 19:03:19
 -->
 <!DOCTYPE html>
 <html>
@@ -98,52 +98,54 @@
             const ans = [];
             const percent = $("#Percent");
             const ln = numbers.length, lo = operators.length;
-            function toTimeout(n1, n2, n3, n4) {
+            function toTimeout(n1, n2, n3, n4, o1) {
+                console.log(n1, n2, n3, n4, o1);
                 if (!(n1 == n2 || n1 == n3 || n1 == n4 || n2 == n3 || n2 == n4 || n3 == n4)) {
-                    for (var o1 = 0; o1 < lo; o1++) {
-                        for (var o2 = 0; o2 < lo; o2++) {
-                            for (var o3 = 0; o3 < lo; o3++) {
-                                if (o1 == o2 || o1 == o3 || o2 == o3)
-                                    continue;
-                                const string = `(((${numbers[n1]} ${operators[o1]} ${numbers[n2]}) ${operators[o2]} ${numbers[n3]}) ${operators[o3]} ${numbers[n4]})`;
-                                try {
-                                    if (eval(string) == 1024)
-                                        ans.push(string);
-                                }
-                                catch (e) {
-                                    ;  // 分母为0一般是
-                                }
+                    for (var o2 = 0; o2 < lo; o2++) {
+                        for (var o3 = 0; o3 < lo; o3++) {
+                            if (o1 == o2 || o1 == o3 || o2 == o3)
+                                continue;
+                            const string = `(((${numbers[n1]} ${operators[o1]} ${numbers[n2]}) ${operators[o2]} ${numbers[n3]}) ${operators[o3]} ${numbers[n4]})`;
+                            try {
+                                if (eval(string) == 1024)
+                                    ans.push(string);
+                            }
+                            catch (e) {
+                                ;  // 分母为0一般是
                             }
                         }
                     }
                 }
                 const already = n1 * ln * ln * ln + n2 * ln * ln + n3 * ln + n4;
                 const alreadyPercent = already * 100 / (ln * ln * ln * ln);
-                // percent.html("计算进度：" + alreadyPercent + "%");
+                percent.html("计算进度：" + alreadyPercent + "%");
 
-                n4 += 1;
-                if (n4 == ln) {
-                    n4 = 0;
-                    n3 += 1;
-                    if (n3 == ln) {
-                        n3 = 0;
-                        n2 += 1;
-                        if (n2 == ln) {
-                            n2 = 0;
-                            n1++;
-                            if (n1 == ln) {
-                                percent.html("计算进度：100%");
-                                return callBack();
+                o1 += 1;
+                if (o1 == lo) {
+                    o1 = 0;
+                    n4 += 1;
+                    if (n4 == ln) {
+                        n4 = 0;
+                        n3 += 1;
+                        if (n3 == ln) {
+                            n3 = 0;
+                            n2 += 1;
+                            if (n2 == ln) {
+                                n2 = 0;
+                                n1++;
+                                if (n1 == ln) {
+                                    percent.html("计算进度：100%");
+                                    return callBack();
+                                }
                             }
                         }
                     }
                 }
-
                 setTimeout(() => {
-                    toTimeout(n1, n2, n3, n4);
+                    toTimeout(n1, n2, n3, n4, o1);
                 }, 0);
             }
-            toTimeout(0, 0, 0, 0);
+            toTimeout(0, 0, 0, 0, 0);
             return ans;
         }
 
