@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2022-10-17 19:03:59
  * @LastEditors: LetMeFly
- * @LastEditTime: 2022-10-20 18:35:03
+ * @LastEditTime: 2022-10-20 18:58:18
 -->
 <!DOCTYPE html>
 <html>
@@ -97,7 +97,7 @@
         function main(numbers, operators, callBack) {
             const ans = [];
             const percent = $("#Percent");
-            const ln = operators.length, lo = operators.length;
+            const ln = numbers.length, lo = operators.length;
             function toTimeout(n1, n2, n3, n4) {
                 if (!(n1 == n2 || n1 == n3 || n1 == n4 || n2 == n3 || n2 == n4 || n3 == n4)) {
                     for (var o1 = 0; o1 < lo; o1++) {
@@ -119,7 +119,7 @@
                 }
                 const already = n1 * ln * ln * ln + n2 * ln * ln + n3 * ln + n4;
                 const alreadyPercent = already * 100 / (ln * ln * ln * ln);
-                percent.html("计算进度：" + alreadyPercent + "%");
+                // percent.html("计算进度：" + alreadyPercent + "%");
 
                 n4 += 1;
                 if (n4 == ln) {
