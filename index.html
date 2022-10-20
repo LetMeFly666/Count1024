@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2022-10-17 19:03:59
  * @LastEditors: LetMeFly
- * @LastEditTime: 2022-10-20 19:11:56
+ * @LastEditTime: 2022-10-20 19:32:01
 -->
 <!DOCTYPE html>
 <html>
@@ -60,7 +60,9 @@
         <div class="row" style="margin-top: 50px;">
             <div class="col-sm-3"></div>
             <div class="col-sm-6">
-                <button class="btn btn-primary" style="width: 100%;" onclick="analysis()"><h4>开始计算</h4></button>
+                <button class="btn btn-primary" style="width: 100%;" onclick="analysis(true)" title="页面可能会有卡顿"><h4>开始计算（快速）</h4></button>
+                <div style="height: 5px;"></div>
+                <button class="btn btn-secondary" style="width: 100%;" onclick="analysis()" title="setTimeout函数太耗时了，显示进度的技术还不是很成熟呜呜"><h5>开始计算并显示进度（极慢）</h5></button>
             </div>
             <div class="col-sm-3"></div>
         </div>
@@ -151,6 +153,37 @@
             return ans;
         }
 
+        function mainOriginal(numbers, operators) {
+            const ans = [];
+            for (var n1 = 0; n1 < numbers.length; n1++) {
+                for (var n2 = 0; n2 < numbers.length; n2++) {
+                    for (var n3 = 0; n3 < numbers.length; n3++) {
+                        for (var n4 = 0; n4 < numbers.length; n4++) {
+                            if (n1 == n2 || n1 == n3 || n1 == n4 || n2 == n3 || n2 == n4 || n3 == n4)
+                                continue;
+                                for (var o1 = 0; o1 < operators.length; o1++) {
+                                    for (var o2 = 0; o2 < operators.length; o2++) {
+                                        for (var o3 = 0; o3 < operators.length; o3++) {
+                                            if (o1 == o2 || o1 == o3 || o2 == o3)
+                                                continue;
+                                            const string = `(((${numbers[n1]} ${operators[o1]} ${numbers[n2]}) ${operators[o2]} ${numbers[n3]}) ${operators[o3]} ${numbers[n4]})`;
+                                            try {
+                                                if (eval(string) == 1024)
+                                                    ans.push(string);
+                                            }
+                                            catch (e) {
+                                                ;  // 分母为0一般是
+                                            }
+                                        }
+                                    }
+                                }
+                        }
+                    }
+                }
+            }
+            return ans;
+        }
+
         function add1CenterH3Into1Div(div, h3Text, setId) {
             const resultTips = document.createElement("div");
             resultTips.setAttribute("class", "text-align: center");
@@ -224,7 +257,7 @@
             return ans;
         }
 
-        function analysis() {
+        function analysis(ifNotShowPercent) {
             const processDiv = $("#processDiv");
             processDiv.empty();
 
@@ -256,11 +289,23 @@
 
             function caluAndRender() {
                 // 计算
-                const result = main(numbers, operators, realRender);
+                var result;
+                if (ifNotShowPercent) {
+                    $("#Percent").html("正在快速计算");
+                    setTimeout(() => {
+                        result = mainOriginal(numbers, operators);
+                        realRender();
+                        $("#Percent").html("计算已完成！");
+                    }, 0);
+                }
+                else {
+                    result = main(numbers, operators, realRender);
+                }
 
                 function realRender() {
                     // 恭喜！计算出了组成1024的方案
-                    add1CenterH3Into1Div(processDiv, result.length ? "恭喜！计算出了组成1024的方案" : "你的卡牌还无法组成1024哦");
+                    add1CenterH3Into1Div(processDiv, result.length ? "恭喜！计算出了组成1024的方案" : "你的卡牌还无法组成1024哦", "DivCannot");
+                    $("#DivCannot").attr("style", "color: red");
                     // 显示方案
                     if (result.length) {
                         const emptyDiv1 = document.createElement("div");
