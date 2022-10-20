@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2022-10-17 19:03:59
  * @LastEditors: LetMeFly
- * @LastEditTime: 2022-10-20 19:40:51
+ * @LastEditTime: 2022-10-20 19:59:24
 -->
 <!DOCTYPE html>
 <html>
@@ -284,21 +284,21 @@
             }
             add1CenterH3Into1Div(processDiv, "数字：" + numbers.toString());
             add1CenterH3Into1Div(processDiv, "运算符：" + operators.toString());
-            add1CenterH3Into1Div(processDiv, "计算进度：0%", "Percent");
 
 
             function caluAndRender() {
                 // 计算
                 var result;
                 if (ifNotShowPercent) {
-                    $("#Percent").html("正在快速计算");
+                    add1CenterH3Into1Div(processDiv, "正在计算", "Percent");
                     setTimeout(() => {
                         result = mainOriginal(numbers, operators);
                         realRender();
                         $("#Percent").html("计算已完成！");
-                    }, 5);
+                    }, 0);
                 }
                 else {
+                    add1CenterH3Into1Div(processDiv, "计算进度：0%", "Percent");
                     result = main(numbers, operators, realRender);
                 }
 
