@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2022-10-17 19:03:59
  * @LastEditors: LetMeFly
- * @LastEditTime: 2022-10-20 18:32:09
+ * @LastEditTime: 2022-10-20 18:35:03
 -->
 <!DOCTYPE html>
 <html>
@@ -119,7 +119,7 @@
                 }
                 const already = n1 * ln * ln * ln + n2 * ln * ln + n3 * ln + n4;
                 const alreadyPercent = already * 100 / (ln * ln * ln * ln);
-                percent.html("运算进度：" + alreadyPercent + "%");
+                percent.html("计算进度：" + alreadyPercent + "%");
 
                 n4 += 1;
                 if (n4 == ln) {
@@ -132,7 +132,7 @@
                             n2 = 0;
                             n1++;
                             if (n1 == ln) {
-                                percent.html("运算进度：100%");
+                                percent.html("计算进度：100%");
                                 return callBack();
                             }
                         }
@@ -247,7 +247,7 @@
             }
             add1CenterH3Into1Div(processDiv, "数字：" + numbers.toString());
             add1CenterH3Into1Div(processDiv, "运算符：" + operators.toString());
-            add1CenterH3Into1Div(processDiv, "运算进度：0%", "Percent");
+            add1CenterH3Into1Div(processDiv, "计算进度：0%", "Percent");
 
 
             function caluAndRender() {
