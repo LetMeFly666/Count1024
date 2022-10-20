@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2022-10-17 19:03:59
  * @LastEditors: LetMeFly
- * @LastEditTime: 2022-10-20 16:59:20
+ * @LastEditTime: 2022-10-20 18:10:07
 -->
 <!DOCTYPE html>
 <html>
@@ -96,28 +96,30 @@
         /* 真正计算的函数 */
         function main(numbers, operators) {
             const ans = [];
+            const percent = $("#Percent");
             for (var n1 = 0; n1 < numbers.length; n1++) {
                 for (var n2 = 0; n2 < numbers.length; n2++) {
                     for (var n3 = 0; n3 < numbers.length; n3++) {
                         for (var n4 = 0; n4 < numbers.length; n4++) {
                             if (n1 == n2 || n1 == n3 || n1 == n4 || n2 == n3 || n2 == n4 || n3 == n4)
                                 continue;
-                                for (var o1 = 0; o1 < operators.length; o1++) {
-                                    for (var o2 = 0; o2 < operators.length; o2++) {
-                                        for (var o3 = 0; o3 < operators.length; o3++) {
-                                            if (o1 == o2 || o1 == o3 || o2 == o3)
-                                                continue;
-                                            const string = `(((${numbers[n1]} ${operators[o1]} ${numbers[n2]}) ${operators[o2]} ${numbers[n3]}) ${operators[o3]} ${numbers[n4]})`;
-                                            try {
-                                                if (eval(string) == 1024)
-                                                    ans.push(string);
-                                            }
-                                            catch (e) {
-                                                ;  // 分母为0一般是
-                                            }
+                            percent.html(String(n4));
+                            for (var o1 = 0; o1 < operators.length; o1++) {
+                                for (var o2 = 0; o2 < operators.length; o2++) {
+                                    for (var o3 = 0; o3 < operators.length; o3++) {
+                                        if (o1 == o2 || o1 == o3 || o2 == o3)
+                                            continue;
+                                        const string = `(((${numbers[n1]} ${operators[o1]} ${numbers[n2]}) ${operators[o2]} ${numbers[n3]}) ${operators[o3]} ${numbers[n4]})`;
+                                        try {
+                                            if (eval(string) == 1024)
+                                                ans.push(string);
+                                        }
+                                        catch (e) {
+                                            ;  // 分母为0一般是
                                         }
                                     }
                                 }
+                            }
                         }
                     }
                 }
@@ -125,13 +127,16 @@
             return ans;
         }
 
-        function add1CenterH3Into1Div(div, h3Text) {
+        function add1CenterH3Into1Div(div, h3Text, setId) {
             const resultTips = document.createElement("div");
             resultTips.setAttribute("class", "text-align: center");
             div.append(resultTips);
             const resultTipsCenter = document.createElement("center");
             resultTips.append(resultTipsCenter);
             const resultTipsH3 = document.createElement("h3");
+            if (setId) {
+                resultTipsH3.setAttribute("id", setId);
+            }
             resultTipsH3.innerText = h3Text;
             resultTipsCenter.append(resultTipsH3);
             console.log(resultTipsH3.offsetWidth);
@@ -223,33 +228,41 @@
             }
             add1CenterH3Into1Div(processDiv, "数字：" + numbers.toString());
             add1CenterH3Into1Div(processDiv, "运算符：" + operators.toString());
+            add1CenterH3Into1Div(processDiv, "运算进度：0%", "Percent");
 
-            // 计算
-            const result = main(numbers, operators);
-            
-            // 恭喜！计算出了组成1024的方案
-            add1CenterH3Into1Div(processDiv, result.length ? "恭喜！计算出了组成1024的方案" : "你的卡牌还无法组成1024哦");
-            // 显示方案
-            if (result.length) {
-                const emptyDiv1 = document.createElement("div");
-                processDiv.append(emptyDiv1);
-                emptyDiv1.setAttribute("class", "col-sm-3");
-                const resultDiv = document.createElement("div");
-                processDiv.append(resultDiv);
-                resultDiv.setAttribute("class", "col-sm-6");
-                const resultUl = document.createElement("ul");
-                resultDiv.append(resultUl);
-                resultUl.setAttribute("class", "list-group");
-                for (var i = 0; i < result.length; i++) {
-                    const li = document.createElement("li");
-                    resultUl.append(li);
-                    li.setAttribute("class", "list-group-item");
-                    li.innerText = result[i];
+
+            function caluAndRender() {
+                // 计算
+                const result = main(numbers, operators);
+                
+                // 恭喜！计算出了组成1024的方案
+                add1CenterH3Into1Div(processDiv, result.length ? "恭喜！计算出了组成1024的方案" : "你的卡牌还无法组成1024哦");
+                // 显示方案
+                if (result.length) {
+                    const emptyDiv1 = document.createElement("div");
+                    processDiv.append(emptyDiv1);
+                    emptyDiv1.setAttribute("class", "col-sm-3");
+                    const resultDiv = document.createElement("div");
+                    processDiv.append(resultDiv);
+                    resultDiv.setAttribute("class", "col-sm-6");
+                    const resultUl = document.createElement("ul");
+                    resultDiv.append(resultUl);
+                    resultUl.setAttribute("class", "list-group");
+                    for (var i = 0; i < result.length; i++) {
+                        const li = document.createElement("li");
+                        resultUl.append(li);
+                        li.setAttribute("class", "list-group-item");
+                        li.innerText = result[i];
+                    }
+                    const emptyDiv2 = document.createElement("div");
+                    processDiv.append(emptyDiv2);
+                    emptyDiv2.setAttribute("class", "col-sm-3");
                 }
-                const emptyDiv2 = document.createElement("div");
-                processDiv.append(emptyDiv2);
-                emptyDiv2.setAttribute("class", "col-sm-3");
             }
+
+            setTimeout(() => {
+                caluAndRender();
+            }, 0);
         }
 
         function adjustFooter() {
