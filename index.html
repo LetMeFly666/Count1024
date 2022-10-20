@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2022-10-17 19:03:59
  * @LastEditors: LetMeFly
- * @LastEditTime: 2022-10-20 18:30:25
+ * @LastEditTime: 2022-10-20 18:32:09
 -->
 <!DOCTYPE html>
 <html>
@@ -97,11 +97,12 @@
         function main(numbers, operators, callBack) {
             const ans = [];
             const percent = $("#Percent");
+            const ln = operators.length, lo = operators.length;
             function toTimeout(n1, n2, n3, n4) {
                 if (!(n1 == n2 || n1 == n3 || n1 == n4 || n2 == n3 || n2 == n4 || n3 == n4)) {
-                    for (var o1 = 0; o1 < operators.length; o1++) {
-                        for (var o2 = 0; o2 < operators.length; o2++) {
-                            for (var o3 = 0; o3 < operators.length; o3++) {
+                    for (var o1 = 0; o1 < lo; o1++) {
+                        for (var o2 = 0; o2 < lo; o2++) {
+                            for (var o3 = 0; o3 < lo; o3++) {
                                 if (o1 == o2 || o1 == o3 || o2 == o3)
                                     continue;
                                 const string = `(((${numbers[n1]} ${operators[o1]} ${numbers[n2]}) ${operators[o2]} ${numbers[n3]}) ${operators[o3]} ${numbers[n4]})`;
@@ -116,21 +117,21 @@
                         }
                     }
                 }
-                const already = n1 * numbers.length * numbers.length * numbers.length + n2 * numbers.length * numbers.length + n3 * numbers.length + n4;
-                const alreadyPercent = already * 100 / (numbers.length * numbers.length * numbers.length * numbers.length);
+                const already = n1 * ln * ln * ln + n2 * ln * ln + n3 * ln + n4;
+                const alreadyPercent = already * 100 / (ln * ln * ln * ln);
                 percent.html("运算进度：" + alreadyPercent + "%");
 
                 n4 += 1;
-                if (n4 == numbers.length) {
+                if (n4 == ln) {
                     n4 = 0;
                     n3 += 1;
-                    if (n3 == numbers.length) {
+                    if (n3 == ln) {
                         n3 = 0;
                         n2 += 1;
-                        if (n2 == numbers.length) {
+                        if (n2 == ln) {
                             n2 = 0;
                             n1++;
-                            if (n1 == numbers.length) {
+                            if (n1 == ln) {
                                 percent.html("运算进度：100%");
                                 return callBack();
                             }
