@@ -7,9 +7,12 @@
 或者使用Python版本：[https://letmefly.blog.csdn.net/article/details/127413787](https://letmefly.blog.csdn.net/article/details/127413787)
 
 
+## 更新日志
+
+**20221020 17:00:00(UTC+8)**： 实现了卡牌的缓存机制，避免了下次的重复输入
+
 ## TODO
 
 1. 显示进度，不然一下卡死了
-2. 启用缓存，下次更方便
 
 欢迎各位大佬的PR
