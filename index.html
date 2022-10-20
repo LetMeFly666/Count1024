@@ -1,0 +1,285 @@
+<!--
+ * @Author: LetMeFly
+ * @Date: 2022-10-17 19:03:59
+ * @LastEditors: LetMeFly
+ * @LastEditTime: 2022-10-20 14:39:59
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>力扣1024</title>
+    <meta charset="utf-8">
+    <script src="https://letmefly.xyz/Links/Common.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://letmefly.xyz/Links/bootstrap.min.css">
+    <script src="https://letmefly.xyz/Links/jquery.min.js"></script>
+    <script src="https://letmefly.xyz/Links/bootstrap.min.js"></script>
+</head>
+
+<body>
+    
+    <a href="https://github.com/LetMeFly666/Count1024" class="github-corner" aria-label="View source on GitHub" target="_blank">
+        <svg width="80" height="80" viewBox="0 0 250 250" style="fill:rgb(51, 122, 183); color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true">
+            <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm">  
+            </path>
+            <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body">
+            </path>
+        </svg>
+    </a>
+     
+    <style id="ForUpRightGithub">
+        .github-corner:hover 
+        .octo-arm{animation:octocat-wave 560ms ease-in-out}
+        @keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner 
+        .octo-arm{animation:octocat-wave 560ms ease-in-out}}
+    </style>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>你的卡牌能否组成1024</h1>
+        </div>
+        
+        <div class="row">
+            <div class="col-sm-12" id="DivNumber">
+                <h3 style="display: inline;" id="H3Number">输入你的数字卡牌，任意非数字字符分隔：</h3>
+                <input type="text" id="NumberInput" placeholder="16, 2, 16, 0">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12" id="DivOperator">
+                <h3 style="display: inline;" id="H3Operator">输入你的运算卡牌，任意非运算字符分隔：</h3>
+                <input type="text" id="OperatorInput" placeholder="<<, *, +">
+            </div>
+        </div>
+
+        <div id="processDiv"></div>
+        <div style="display: inline-block; width: 100%;"></div>
+
+        <div class="row" style="margin-top: 50px;">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-6">
+                <button class="btn btn-primary" style="width: 100%;" onclick="analysis()"><h4>开始计算</h4></button>
+            </div>
+            <div class="col-sm-3"></div>
+        </div>
+
+        <div class="row" style="margin-top: 50px;">
+            <div class="col-sm-12" id="DivCSDN">
+                <h3>Python版本：<a href="https://letmefly.blog.csdn.net/article/details/127413787">https://letmefly.blog.csdn.net/article/details/127413787</a></h3>
+                <h3>喜欢了就去Star吧：<a href="https://github.com/LetMeFly666/Count1024">https://github.com/LetMeFly666/Count1024</a></h3>
+            </div>
+        </div>
+
+        
+    </div>
+
+    <div class="beforeFooter" id="beforeFooter"></div>
+    <footer class="navbar-fixed-bottom" id="footer">
+        <div class="container" style="background-color: #eeeeee">
+            <div class="row">
+                <div class="col-sm-4">项目地址: <a href="https://github.com/LetMeFly666/Count1024" target="blank">https://github.com/LetMeFly666/Count1024</a></div>
+                <div class="col-sm-4">在线地址：<a href="https://count1024.letmefly.xyz" target="blank">https://Count1024.LetMeFly.xyz </a></div>
+                <div class="col-sm-4">
+                    <span>使用 <a href="https://www.bootcss.com" target="blank">BootStrap</a>、<a href="https://jquery.com" target="blank">jQuery</a></span>
+                    <span>By <a href="https://letmefly.xyz" target="blank">LetMeFly</a></span>
+                </div>
+            </div>
+            <!-- <div class="row" style="text-align: center;">
+                Copyright 2022 ©<a href="https://letmefly.xyz">LetMeFly</a> all rights reserved.
+            </div> -->
+        </div>
+    </footer>
+
+    <script>
+        /* 真正计算的函数 */
+        function main(numbers, operators) {
+            const ans = [];
+            for (var n1 = 0; n1 < numbers.length; n1++) {
+                for (var n2 = 0; n2 < numbers.length; n2++) {
+                    for (var n3 = 0; n3 < numbers.length; n3++) {
+                        for (var n4 = 0; n4 < numbers.length; n4++) {
+                            if (n1 == n2 || n1 == n3 || n1 == n4 || n2 == n3 || n2 == n4 || n3 == n4)
+                                continue;
+                                for (var o1 = 0; o1 < operators.length; o1++) {
+                                    for (var o2 = 0; o2 < operators.length; o2++) {
+                                        for (var o3 = 0; o3 < operators.length; o3++) {
+                                            if (o1 == o2 || o1 == o3 || o2 == o3)
+                                                continue;
+                                            const string = `(((${numbers[n1]} ${operators[o1]} ${numbers[n2]}) ${operators[o2]} ${numbers[n3]}) ${operators[o3]} ${numbers[n4]})`;
+                                            try {
+                                                if (eval(string) == 1024)
+                                                    ans.push(string);
+                                            }
+                                            catch (e) {
+                                                ;  // 分母为0一般是
+                                            }
+                                        }
+                                    }
+                                }
+                        }
+                    }
+                }
+            }
+            return ans;
+        }
+
+        function add1CenterH3Into1Div(div, h3Text) {
+            const resultTips = document.createElement("div");
+            resultTips.setAttribute("class", "text-align: center");
+            div.append(resultTips);
+            const resultTipsCenter = document.createElement("center");
+            resultTips.append(resultTipsCenter);
+            const resultTipsH3 = document.createElement("h3");
+            resultTipsH3.innerText = h3Text;
+            resultTipsCenter.append(resultTipsH3);
+            console.log(resultTipsH3.offsetWidth);
+        }
+
+        /*
+            将 1, 2 （string）变成[1, 2]（list）
+            若输入不合法则返回字符串
+        */
+        function parseNumber(str) {
+            str += ".";
+            const ans = [];
+            var val = 0;
+            var lastIsNumber = false;
+            for (var i = 0; i < str.length; i++) {
+                if (str[i] >= '0' && str[i] <= '9') {
+                    val = val * 10 + (str[i] - '0');
+                    lastIsNumber = true;
+                }
+                else {
+                    if (lastIsNumber) {
+                        ans.push(val);
+                        val = 0;
+                    }
+                    lastIsNumber = false;
+                }
+            }
+            return ans;
+        }
+
+        /*
+            将 *, - （string）变成['*', '+']（list）
+            若输入不合法则返回字符串
+        */
+        function parseOperator(str) {
+            function isIn(a, b) {
+                /* if a is in b*/
+                for (var i = 0; i < b.length; i++) {
+                    if (a == b[i])
+                        return true;
+                }
+                return false;
+            }
+            const couldBe = ["+", "-", "*", "**", "%", "//", "|", "&", "^", "<<", ">>"];
+            const ans = [];
+            for (var i = 0; i < str.length; i++) {
+                var has2 = false;
+                if (i + 1 < str.length) {
+                    const this2 = "" + str[i] + str[i + 1];
+                    if (isIn(this2, couldBe)) {
+                        ans.push(this2);
+                        i += 1;  // 防止**的第二个*被判断成单独的*
+                        has2 = true;
+                    }
+                }
+                if (!has2) {
+                    if (isIn(str[i], couldBe)) {
+                        ans.push(str[i]);
+                    }
+                }
+            }
+            return ans;
+        }
+
+        function analysis() {
+            const processDiv = $("#processDiv");
+            processDiv.empty();
+
+            // 获取并分析输入
+            const NumberInput = $("#NumberInput");
+            if (!NumberInput.val()) {
+                NumberInput.val(NumberInput.attr("placeholder"));
+            }
+            const OperatorInput = $("#OperatorInput");
+            if (!OperatorInput.val()) {
+                OperatorInput.val(OperatorInput.attr("placeholder"));
+            }
+            const numbers = parseNumber(NumberInput.val());
+            if (typeof numbers == "string") {
+                add1CenterH3Into1Div(processDiv, numbers);
+                return;
+            }
+            const operators = parseOperator(OperatorInput.val());
+            if (typeof operators == "string") {
+                add1CenterH3Into1Div(processDiv, operators);
+                return;
+            }
+            add1CenterH3Into1Div(processDiv, "数字：" + numbers.toString());
+            add1CenterH3Into1Div(processDiv, "运算符：" + operators.toString());
+
+            // 计算
+            const result = main(numbers, operators);
+            
+            // 恭喜！计算出了组成1024的方案
+            add1CenterH3Into1Div(processDiv, result.length ? "恭喜！计算出了组成1024的方案" : "你的卡牌还无法组成1024哦");
+            // 显示方案
+            if (result.length) {
+                const emptyDiv1 = document.createElement("div");
+                processDiv.append(emptyDiv1);
+                emptyDiv1.setAttribute("class", "col-sm-3");
+                const resultDiv = document.createElement("div");
+                processDiv.append(resultDiv);
+                resultDiv.setAttribute("class", "col-sm-6");
+                const resultUl = document.createElement("ul");
+                resultDiv.append(resultUl);
+                resultUl.setAttribute("class", "list-group");
+                for (var i = 0; i < result.length; i++) {
+                    const li = document.createElement("li");
+                    resultUl.append(li);
+                    li.setAttribute("class", "list-group-item");
+                    li.innerText = result[i];
+                }
+                const emptyDiv2 = document.createElement("div");
+                processDiv.append(emptyDiv2);
+                emptyDiv2.setAttribute("class", "col-sm-3");
+            }
+        }
+
+        function adjustFooter() {
+            const height = $("#footer").height();
+            $("#beforeFooter").height(height);
+        }
+
+        function adjustInputWidth(DivIdName, H3IdName, NumberIdName) {
+            const DivNumber = $(DivIdName);
+            const DivNumberWidth = DivNumber.width();
+            const DivNumberPaddingLeft = parseInt(DivNumber.css("padding-left").replace("px", ""));
+            const DivNumberPaddingRight = parseInt(DivNumber.css("padding-right").replace("px", ""));
+            const H3Number = $(H3IdName);
+            const H3NumberWidth = H3Number.width();
+            const NumberInput = $(NumberIdName);
+            // const NumberInputWidth = NumberInput.width();
+            NumberInput.width(Math.max(DivNumberWidth - DivNumberPaddingLeft - DivNumberPaddingRight - H3NumberWidth - 30, 174));
+        }
+
+        function adjust() {  // 调整底部距离、输入框长度
+            adjustFooter();
+            adjustInputWidth("#DivNumber", "#H3Number", "#NumberInput");
+            adjustInputWidth("#DivOperator", "#H3Operator", "#OperatorInput");
+        }
+
+        $(() => {  // Onload
+            adjust();
+        });
+
+        $(window).resize(() => adjust());
+    </script>
+
+</body>
+
+</html>
