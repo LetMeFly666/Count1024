@@ -18,5 +18,7 @@
 ## TODO
 
 1. 忽然想起来，我这不是反向优化了么。。。 setTimeout的调用次数更多了。。
+2. 使用[Heap's algorithm](https://en.wikipedia.org/wiki/Heap%27s_algorithm)进行效率**优化**，感谢[@zRains](https://github.com/zRains)大佬的[issue](https://github.com/LetMeFly666/Count1024/issues/2)
+3. js运算过程中一些不符预期的结果，例如```(((11 >> 34) >> 1024) | 1024)```在```js```中运算结果为```1026```，感谢[@zRains](https://github.com/zRains)大佬的[issue](https://github.com/LetMeFly666/Count1024/issues/2)
 
 欢迎各位大佬的PR
