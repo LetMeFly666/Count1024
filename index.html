@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2022-10-17 19:03:59
  * @LastEditors: LetMeFly
- * @LastEditTime: 2022-10-21 13:42:04
+ * @LastEditTime: 2022-10-21 13:59:18
 -->
 <!DOCTYPE html>
 <html>
@@ -71,6 +71,7 @@
             <div class="col-sm-12" id="DivCSDN">
                 <h3>Python版本：<a href="https://letmefly.blog.csdn.net/article/details/127413787" target="blank">https://letmefly.blog.csdn.net/article/details/127413787</a></h3>
                 <h3>喜欢了就去点个Star吧：<a href="https://github.com/LetMeFly666/Count1024" target="blank">https://github.com/LetMeFly666/Count1024</a></h3>
+                <h3>特此鸣谢<a href="https://github.com/zRains" target="blank">@zRains</a>大佬提供的<a href="https://github.com/LetMeFly666/Count1024/issues/2">快速计算方法</a>！效率有了质的飞跃🎉</h3>
             </div>
         </div>
 
@@ -85,7 +86,7 @@
                 <div class="col-sm-4">在线地址：<a href="https://count1024.letmefly.xyz" target="blank">https://Count1024.LetMeFly.xyz </a></div>
                 <div class="col-sm-4">
                     <span>使用 <a href="https://www.bootcss.com" target="blank">BootStrap</a>、<a href="https://jquery.com" target="blank">jQuery</a></span>
-                    <span>By <a href="https://letmefly.xyz" target="blank">LetMeFly</a></span>
+                    <span>By <a href="https://letmefly.xyz" target="blank">LetMeFly</a> & <a href="https://github.com/zRains" target="blank">zRains</a></span>
                 </div>
             </div>
             <!-- <div class="row" style="text-align: center;">
@@ -153,35 +154,162 @@
             return ans;
         }
 
-        function mainOriginal(numbers, operators) {
-            const ans = [];
-            for (var n1 = 0; n1 < numbers.length; n1++) {
-                for (var n2 = 0; n2 < numbers.length; n2++) {
-                    for (var n3 = 0; n3 < numbers.length; n3++) {
-                        for (var n4 = 0; n4 < numbers.length; n4++) {
-                            if (n1 == n2 || n1 == n3 || n1 == n4 || n2 == n3 || n2 == n4 || n3 == n4)
-                                continue;
-                            for (var o1 = 0; o1 < operators.length; o1++) {
-                                for (var o2 = 0; o2 < operators.length; o2++) {
-                                    for (var o3 = 0; o3 < operators.length; o3++) {
-                                        if (o1 == o2 || o1 == o3 || o2 == o3)
-                                            continue;
-                                        const string = `(((${numbers[n1]} ${operators[o1]} ${numbers[n2]}) ${operators[o2]} ${numbers[n3]}) ${operators[o3]} ${numbers[n4]})`;
-                                        try {
-                                            if (eval(string) == 1024)
-                                                ans.push(string);
-                                        }
-                                        catch (e) {
-                                            ;  // 分母为0一般是
-                                        }
-                                    }
-                                }
-                            }
+        function mainByzRains(numbers, operators) {
+            /**
+             * 重排列
+             * @param {number[]} a
+             * @param {number} [s]
+             * @param {number[][]} [r]
+             * @returns
+             */
+            function pr(a, s = a.length, r = []) {
+                const swap = (_a, _b) => ([a[_a], a[_b]] = [a[_b], a[_a]]);
+                if (s === 1) r.push([...a]);
+                for (let i = 0; i < s; i++) {
+                    pr(a, s - 1, r);
+                    s % 2 === 1 ? swap(0, s - 1) : swap(i, s - 1);
+                }
+                return r;
+            }
+
+            /**
+             * 重组合
+             * @param {number[]} a
+             * @param {number} k
+             */
+            function co(a, k) {
+                let result = [],
+                    path = [];
+
+                /**
+                 * 
+                 * @param {number[]} _a
+                 * @param {number} _k
+                 * @param {number} _i
+                 */
+                const recur = (i) => {
+                    if (path.length === k) {
+                        result.push([...path]);
+                        return;
+                    }
+                    for (; i < a.length; i++) {
+                        path.push(a[i]);
+                        recur(i + 1);
+                        path.pop();
+                    }
+                }
+                recur(0);
+                return result;
+            }
+
+            // Solution_1 @zRains
+            // function pr(a, s = a.length, r = []) {...}
+            // function co(a, k) {...}
+
+            /**
+             *
+             * @param {number[]} a
+             * @param {number} m
+             * @return {any[][]}
+             */
+            function gr(a, m) {
+                const res = [];
+                co(a, m).forEach((c) => res.push(...pr(c)));
+                return res;
+            }
+
+            /**
+             *
+             * @param {Map<any, number>} map
+             * @param {number} max
+             */
+            const rs = (map, max) => {
+                const res = [];
+                map.forEach((v, k) => void res.push(...Array(Math.min(max, v)).fill(k)));
+                return res;
+            }
+
+            /**
+             *
+             * @param {number} x
+             * @param {string} o
+             * @param {number} y
+             * @returns
+             */
+            function cs(x, o, y) {
+                if (o === '+') return x + y;
+                if (o === '-') return x - y;
+                if (o === '*') return x * y;
+                if (o === '**') return x ** y;
+                if (o === '//') return Math.floor(x / y);
+                if (o === '%') return x % y;
+                if (o === '|') return x | y;
+                if (o === '&') return x & y;
+                if (o === '^') return x ^ y;
+                if (o === '>>') return x >> y;
+                if (o === '<<') return x << y;
+
+                throw new Error(`未知符号：${o}`);
+            }
+
+            /**
+             *
+             * @param {number[]} n
+             * @param {string[]} s
+             */
+            function ca(n, s) {
+                let n1 = n[0];
+                for (let i = 0; i < 3; i++) n1 = cs(n1, s[i], n[i + 1]);
+                return n1;
+            }
+
+            /**
+             *
+             * @param {any[]} arr
+             * @param {boolean} [isNum]
+             */
+            function unique(arr, isNum = true) {
+                const set = new Set();
+                arr.forEach((a) => set.add(a.join('#')));
+                return [...set.values()].map((a) => a.split('#').map((v) => (isNum ? parseInt(v) : v)));
+            }
+
+            /**
+             *
+             * @param {number[]} _n
+             * @param {string[]} _s
+             */
+            function $1024$(_n, _s) {
+                const result = [];
+                const [cardMap, symbolMap] = [_n, _s].map((a) => {
+                    let map = new Map();
+                    a.forEach((c) => {
+                        let v = !isNaN(c) ? Number.parseInt(c) : c;
+                        map.set(v, 1 + (map.get(v) || 0));
+                    })
+                    return map;
+                })
+
+                const numbers = rs(cardMap, 4),
+                    symbols = rs(symbolMap, 3);
+
+                if (numbers.length < 4 || symbols < 3) throw new Error('没有足够的数字卡或符号卡');
+
+                const numGroups = unique(gr(numbers, 4)),
+                    symGroups = unique(gr(symbols, 3), false);
+
+                for (n of numGroups) {
+                    for (s of symGroups) {
+                        if (ca(n, s) === 1024) {
+                            result.push(`(((${n[0]} ${s[0]} ${n[1]}) ${s[1]} ${n[2]}) ${s[2]} ${n[3]})`);
                         }
                     }
                 }
+
+                return result;
             }
-            return ans;
+
+            return $1024$(numbers, operators);
         }
 
         function add1CenterH3Into1Div(div, h3Text, setId) {
@@ -292,7 +420,7 @@
                 if (ifNotShowPercent) {
                     add1CenterH3Into1Div(processDiv, "正在计算", "Percent");
                     setTimeout(() => {
-                        result = mainOriginal(numbers, operators);
+                        result = mainByzRains(numbers, operators);
                         realRender();
                         $("#Percent").html("计算已完成！");
                     }, 0);
