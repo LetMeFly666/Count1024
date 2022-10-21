@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2022-10-17 19:03:59
  * @LastEditors: LetMeFly
- * @LastEditTime: 2022-10-20 19:59:24
+ * @LastEditTime: 2022-10-21 13:42:04
 -->
 <!DOCTYPE html>
 <html>
@@ -161,22 +161,22 @@
                         for (var n4 = 0; n4 < numbers.length; n4++) {
                             if (n1 == n2 || n1 == n3 || n1 == n4 || n2 == n3 || n2 == n4 || n3 == n4)
                                 continue;
-                                for (var o1 = 0; o1 < operators.length; o1++) {
-                                    for (var o2 = 0; o2 < operators.length; o2++) {
-                                        for (var o3 = 0; o3 < operators.length; o3++) {
-                                            if (o1 == o2 || o1 == o3 || o2 == o3)
-                                                continue;
-                                            const string = `(((${numbers[n1]} ${operators[o1]} ${numbers[n2]}) ${operators[o2]} ${numbers[n3]}) ${operators[o3]} ${numbers[n4]})`;
-                                            try {
-                                                if (eval(string) == 1024)
-                                                    ans.push(string);
-                                            }
-                                            catch (e) {
-                                                ;  // 分母为0一般是
-                                            }
+                            for (var o1 = 0; o1 < operators.length; o1++) {
+                                for (var o2 = 0; o2 < operators.length; o2++) {
+                                    for (var o3 = 0; o3 < operators.length; o3++) {
+                                        if (o1 == o2 || o1 == o3 || o2 == o3)
+                                            continue;
+                                        const string = `(((${numbers[n1]} ${operators[o1]} ${numbers[n2]}) ${operators[o2]} ${numbers[n3]}) ${operators[o3]} ${numbers[n4]})`;
+                                        try {
+                                            if (eval(string) == 1024)
+                                                ans.push(string);
+                                        }
+                                        catch (e) {
+                                            ;  // 分母为0一般是
                                         }
                                     }
                                 }
+                            }
                         }
                     }
                 }
