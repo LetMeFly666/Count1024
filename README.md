@@ -2,7 +2,7 @@
  * @Author: LetMeFly
  * @Date: 2022-10-20 10:47:31
  * @LastEditors: LetMeFly
- * @LastEditTime: 2022-10-22 11:04:28
+ * @LastEditTime: 2022-10-22 18:59:28
 -->
 # Count1024
 
@@ -24,6 +24,8 @@
 **20221021 14:00:00(UTC+8)**： 采用了[@zRains](https://github.com/zRains)提供的[算法](https://github.com/LetMeFly666/Count1024/issues/2)，效率有了很大的提升。
 
 **20221022 10:50:00(UTC+8)**： 修复了32位整数溢出的BUG，实现了和力扣的运算结果的一致 —— By [@zRains](https://github.com/zRains)
+
+**20221022 18:50:00(UTC+8)**： 将结果显示在“开始计算按钮”的下方，方便下次计算
 
 ## TODO
 
