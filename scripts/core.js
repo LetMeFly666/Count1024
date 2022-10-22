@@ -108,7 +108,7 @@ function calc(lsh, symbol, rsh) {
       return result
 
     case '//':
-      result = Math.floor(lsh, rsh)
+      result = Math.floor(lsh / rsh)
       if (isOverflow(result)) throw new Error('Divide operation overflow occurs')
       return result
 
@@ -185,7 +185,7 @@ function $1024$(numCards, symCards) {
   const numbers = mapResolver(cardMap, 4),
     symbols = mapResolver(symbolMap, 3)
 
-  if (numbers.length < 4 || symbols < 3) throw new Error('Not enough number cards or symbol cards')
+  if (numbers.length < 4 || symbols.length < 3) throw new Error('Not enough number cards or symbol cards')
 
   const numGroups = unique(group(numbers, 4)),
     symGroups = unique(group(symbols, 3), false)
