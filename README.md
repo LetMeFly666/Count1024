@@ -1,3 +1,9 @@
+<!--
+ * @Author: LetMeFly
+ * @Date: 2022-10-20 10:47:31
+ * @LastEditors: LetMeFly
+ * @LastEditTime: 2022-10-22 11:04:28
+-->
 # Count1024
 
 力扣2022-1024马尔科夫链活动，你的卡牌能合成1024吗
@@ -17,9 +23,10 @@
 
 **20221021 14:00:00(UTC+8)**： 采用了[@zRains](https://github.com/zRains)提供的[算法](https://github.com/LetMeFly666/Count1024/issues/2)，效率有了很大的提升。
 
+**20221022 10:50:00(UTC+8)**： 修复了32位整数溢出的BUG，实现了和力扣的运算结果的一致 —— By [@zRains](https://github.com/zRains)
+
 ## TODO
 
 1. 忽然想起来，我这不是反向优化了么。。。 setTimeout的调用次数更多了。。
-2. js运算过程中一些不符预期的结果，例如```(((11 >> 34) >> 1024) | 1024)```在```js```中运算结果为```1026```，感谢[@zRains](https://github.com/zRains)大佬的[issue](https://github.com/LetMeFly666/Count1024/issues/2)
 
 欢迎各位大佬的PR
