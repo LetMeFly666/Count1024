@@ -2,7 +2,7 @@
  * @Author: LetMeFly & zRains
  * @Date: 2022-10-17 19:03:59
  * @LastEditors: LetMeFly
- * @LastEditTime: 2022-10-22 18:48:44
+ * @LastEditTime: 2022-10-26 19:37:01
 -->
 
 <!DOCTYPE html>
@@ -334,7 +334,14 @@
           if (ifNotShowPercent) {
             add1CenterH3Into1Div(processDiv, '正在计算', 'Percent')
             setTimeout(() => {
-              result = $1024$(numbers, operators)
+              try {
+                result = $1024$(numbers, operators)
+              }
+              catch (err) {
+                $('#Percent').html(err.message)
+                $('#Percent').attr('style', 'color: red')
+                return -1
+              }
               realRender()
               $('#Percent').html('计算已完成！')
             }, 0)
