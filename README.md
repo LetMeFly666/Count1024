@@ -2,17 +2,15 @@
  * @Author: LetMeFly
  * @Date: 2022-10-20 10:47:31
  * @LastEditors: LetMeFly.xyz
- * @LastEditTime: 2025-03-09 21:45:12
+ * @LastEditTime: 2025-03-09 21:46:21
 -->
-# Count1024
-
 > [!CAUTION]
 > 
-> 活动已结束两年半，[上次commit](https://github.com/LetMeFly666/Count1024/commit/6770c8ce5a477e10acf1167b05341d1ee58bcb9b)也已过去一坤年。
->
-> 感谢大家的陪伴和支持，这个仓库要Archive啦！
+> 活动已结束两年半，[上次commit](https://github.com/LetMeFly666/Count1024/commit/6770c8ce5a477e10acf1167b05341d1ee58bcb9b)也已过去一坤年。感谢大家的陪伴和支持，这个仓库要Archive啦！
 >
 > 三年来我的开发可能也更规范了些，在此也对我的Collaborator[@zRains](https://github.com/zRains)表示再次的感谢！大家未来再会。
+
+# Count1024
 
 力扣2022-1024马尔科夫链活动，你的卡牌能合成1024吗？[活动地址点我](https://leetcode.cn/2022-1024)
 
